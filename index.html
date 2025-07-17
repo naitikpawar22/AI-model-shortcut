@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 20 AI Models Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #1b263b;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #4361ee, #3a0ca3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #6c757d;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto 3rem;
+            position: relative;
+        }
+        
+        #search {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-left: 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        #search:focus {
+            outline: none;
+            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+        }
+        
+        .ai-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .ai-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(58, 12, 163, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .ai-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(67, 97, 238, 0.15);
+        }
+        
+        .ai-card:hover::before {
+            opacity: 1;
+        }
+        
+        .ai-logo-container {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-logo {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        
+        .ai-card:hover .ai-logo {
+            transform: scale(1.1);
+        }
+        
+        .ai-content {
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        .ai-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        .ai-desc {
+            color: #6c757d;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        .ai-provider {
+            display: inline-block;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .ai-card:hover .ai-provider {
+            background: rgba(67, 97, 238, 0.2);
+        }
+        
+        .visit-btn {
+            display: none;
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .ai-card:hover .visit-btn {
+            display: block;
+            animation: fadeInUp 0.4s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .ai-container {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .ai-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .ai-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Top 20 AI Models</h1>
+        <p class="subtitle">Explore the most advanced artificial intelligence models available today</p>
+    </header>
+    
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="search" placeholder="Search AI models..." />
+    </div>
+    
+    <div class="ai-container" id="aiContainer">
+        <!-- AI cards will be generated by JavaScript -->
+    </div>
+    
+    <script>
+        // Top 20 AI models data with name, logo URL, description, provider, and redirect URL
+        const aiModels = [
+            {
+                name: "ChatGPT-4",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/240px-ChatGPT_logo.svg.png",
+                desc: "OpenAI's most advanced conversational AI with multimodal capabilities",
+                provider: "OpenAI",
+                url: "https://chat.openai.com"
+            },
+            {
+                name: "Gemini 1.5",
+                logo: "https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg",
+                desc: "Google's state-of-the-art multimodal AI with 1M token context",
+                provider: "Google DeepMind",
+                url: "https://gemini.google.com"
+            },
+         {
+                name: "DeepSeek-V3",
+                logo: "https://www.deepseek.com/favicon.ico",
+                desc: "Advanced 128K context window language model",
+                provider: "DeepSeek",
+                url: "https://www.deepseek.com"
+            }
+,
+
+                       {
+                name: "xAI Grok",
+                logo: "https://x.ai/favicon.ico",
+                desc: "AI with real-time knowledge and rebellious streak",
+                provider: "xAI",
+                url: "https://x.ai"
+            },
+            {
+                name: "Claude 3",
+                logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwguzKZv5vwJ0B79_KQtB9_u0MQt18FHfkQ&s",
+                desc: "Anthropic's most capable AI model with strong reasoning skills",
+                provider: "Anthropic",
+                url: "https://claude.ai"
+            },
+            {
+                name: "GitHub Copilot",
+                logo: "https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png",
+                desc: "AI pair programmer that suggests code in real-time",
+                provider: "GitHub (Microsoft)",
+                url: "https://github.com/features/copilot"
+            },
+
+            {
+                name: "Llama 3",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Llama_logo.png/240px-Llama_logo.png",
+                desc: "Meta's open-weight large language model with 400B parameters",
+                provider: "Meta",
+                url: "https://ai.meta.com/llama"
+            },
+            {
+                name: "Mistral Large",
+                logo: "https://mistral.ai/favicon.ico",
+                desc: "High-performance language model rivaling top proprietary AIs",
+                provider: "Mistral AI",
+                url: "https://mistral.ai"
+            },
+            {
+                name: "Perplexity AI",
+                logo: "data:image/png;base64,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",
+                desc: "AI-powered answer engine with real-time web access",
+                provider: "Perplexity",
+                url: "https://www.perplexity.ai"
+            },
+            {
+                name: "Groq LPU",
+                logo: "https://groq.com/favicon.ico",
+                desc: "World's fastest AI inference engine for LLMs",
+                provider: "Groq",
+                url: "https://groq.com"
+            },
+            {
+                name: "Pi AI",
+                logo: "https://pi.ai/favicon.ico",
+                desc: "Kind and supportive personal AI assistant",
+                provider: "Inflection",
+                url: "https://pi.ai"
+            },
+
+ 
+            {
+                name: "Suno AI V3",
+                logo: "https://suno.com/favicon.ico",
+                desc: "Breakthrough AI music generation system",
+                provider: "Suno",
+                url: "https://suno.com"
+            },
+            {
+                name: "Runway ML",
+                logo: "https://runwayml.com/favicon.ico",
+                desc: "Creative AI tools for video generation and editing",
+                provider: "Runway",
+                url: "https://runwayml.com"
+            },
+            {
+                name: "Character.AI",
+                logo: "https://character.ai/favicon.ico",
+                desc: "Create and chat with AI characters of any kind",
+                provider: "Character Technologies",
+                url: "https://character.ai"
+            },
+            {
+                name: "Synthesia",
+                logo: "https://www.synthesia.io/favicon.ico",
+                desc: "AI video generation with realistic avatars",
+                provider: "Synthesia",
+                url: "https://www.synthesia.io"
+            },
+            {
+                name: "ElevenLabs",
+                logo: "https://elevenlabs.io/favicon.ico",
+                desc: "Most realistic AI voice generation and cloning",
+                provider: "ElevenLabs",
+                url: "https://elevenlabs.io"
+            },
+
+        ];
+        
+        // Function to generate AI cards
+        function generateAICards(models) {
+            const container = document.getElementById('aiContainer');
+            container.innerHTML = '';
+            
+            models.forEach(model => {
+                const card = document.createElement('div');
+                card.className = 'ai-card';
+                card.innerHTML = `
+                    <div class="ai-logo-container">
+                        <img src="${model.logo}" alt="${model.name}" class="ai-logo">
+                        <a href="${model.url}" target="_blank" class="visit-btn">Visit <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                    <div class="ai-content">
+                        <div class="ai-name">${model.name}</div>
+                        <div class="ai-desc">${model.desc}</div>
+                        <span class="ai-provider">${model.provider}</span>
+                    </div>
+                `;
+                
+                // Add click event to the entire card
+                card.addEventListener('click', (e) => {
+                    // Don't redirect if clicking on the visit button (let the link handle it)
+                    if (!e.target.closest('.visit-btn')) {
+                        window.open(model.url, '_blank');
+                    }
+                });
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // Initial load
+        generateAICards(aiModels);
+        
+        // Search functionality
+        document.getElementById('search').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredModels = aiModels.filter(model => 
+                model.name.toLowerCase().includes(searchTerm) || 
+                model.desc.toLowerCase().includes(searchTerm) ||
+                model.provider.toLowerCase().includes(searchTerm)
+            );
+            generateAICards(filteredModels);
+        });
+    </script>
+
+    <footer style="
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    font-family: 'Poppins', sans-serif;
+">
+    <div style="
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    ">
+        <p style="margin: 0; font-size: 0.9rem;">
+            &copy; <span id="year"></span> Design  by Naitik
+        </p>
+        <div style="
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        ">
+            <a href="#" style="color: white; text-decoration: none; transition: all 0.3s ease;">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" style="color: white; text-decoration: none; transition: all 0.3s ease;">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/naitikpawar22" style="color: white; text-decoration: none; transition: all 0.3s ease;">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Automatically update copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</footer>
+</body>
+</html>
